@@ -6,7 +6,7 @@ import { SetFilterRole } from 'src/app/store/actions/user.actions';
 @Component({
   selector: 'app-search-role-users',
   templateUrl: './search-role-users.component.html',
-  styleUrls: ['./search-role-user.component.css']
+  styleUrls: ['./search-role-users.component.css']
 })
 export class SearchRoleUsersComponent {
 
