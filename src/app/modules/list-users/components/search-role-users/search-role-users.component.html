@@ -1,0 +1,14 @@
+
+
+<div class="">
+
+    <select [ngModel]="selectedRole$ | async" (change)="setRole($event)" class="border border-gray-400 rounded focus:outline-none focus:border-blue-500 py-2 px-3">
+        <option [value]="null" disabled>Seleccione un rol</option>
+        <option [value]="o" *ngFor="let o of [ 'admin', 'client']">
+            {{o}}
+        </option>
+    </select>
+
+</div>
+
+

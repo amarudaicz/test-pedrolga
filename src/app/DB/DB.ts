@@ -1,6 +1,6 @@
 import { User } from "../modules/users/interfaces/user.interface";
 
-export const users: User[] = [
+export const _USERS: User[] = [
   { id: 1, name: 'Amaru', lastName: 'Daicz', email: 'amaru@example.com', role: 'admin' },
   { id: 2, name: 'Sofía', lastName: 'López', email: 'sofia@example.com', role: 'client' },
   { id: 3, name: 'Carlos', lastName: 'Gómez', email: 'carlos@example.com', role: 'client' },
@@ -11,4 +11,30 @@ export const users: User[] = [
   { id: 8, name: 'Valeria', lastName: 'Ramírez', email: 'valeria@example.com', role: 'client' },
   { id: 9, name: 'Sebastián', lastName: 'Torres', email: 'sebastian@example.com', role: 'client' },
   { id: 10, name: 'Camila', lastName: 'Morales', email: 'camila@example.com', role: 'admin' },
+  { id: 11, name: 'Fernando', lastName: 'Álvarez', email: 'fernando@example.com', role: 'client' },
+  { id: 12, name: 'Martín', lastName: 'Díaz', email: 'martin@example.com', role: 'client' },
+  { id: 13, name: 'Paula', lastName: 'Fernández', email: 'paula@example.com', role: 'client' },
+  { id: 14, name: 'Raúl', lastName: 'García', email: 'raul@example.com', role: 'admin' },
+  { id: 15, name: 'Emma', lastName: 'Sánchez', email: 'emma@example.com', role: 'client' },
+  { id: 16, name: 'Diego', lastName: 'Vázquez', email: 'diego@example.com', role: 'admin' },
+  { id: 17, name: 'Marta', lastName: 'Moreno', email: 'marta@example.com', role: 'client' },
+  { id: 18, name: 'Juan', lastName: 'Jiménez', email: 'juan@example.com', role: 'client' },
+  { id: 19, name: 'Lucía', lastName: 'Ruiz', email: 'lucia2@example.com', role: 'client' },
+  { id: 20, name: 'Pedro', lastName: 'Pérez', email: 'pedro@example.com', role: 'admin' },
+  { id: 21, name: 'Andrea', lastName: 'González', email: 'andrea@example.com', role: 'client' },
+  { id: 22, name: 'Alberto', lastName: 'Martínez', email: 'alberto@example.com', role: 'admin' },
+  { id: 23, name: 'Verónica', lastName: 'López', email: 'veronica@example.com', role: 'client' },
+  { id: 24, name: 'Manuel', lastName: 'Moreno', email: 'manuel@example.com', role: 'client' },
+  { id: 25, name: 'Antonio', lastName: 'Ramírez', email: 'antonio@example.com', role: 'admin' },
+  { id: 26, name: 'Gabriela', lastName: 'Hernández', email: 'gabriela@example.com', role: 'client' },
+  { id: 27, name: 'Javier', lastName: 'González', email: 'javier@example.com', role: 'admin' },
+  { id: 28, name: 'Inés', lastName: 'Jiménez', email: 'ines@example.com', role: 'client' },
+  { id: 29, name: 'Alejandro', lastName: 'Serrano', email: 'alejandro@example.com', role: 'admin' },
+  { id: 30, name: 'Raquel', lastName: 'Martínez', email: 'raquel@example.com', role: 'client' },
+  { id: 31, name: 'José', lastName: 'García', email: 'jose@example.com', role: 'admin' },
+  { id: 32, name: 'Nadia', lastName: 'Crespo', email: 'nadia@example.com', role: 'client' },
+  { id: 33, name: 'Samuel', lastName: 'Castro', email: 'samuel@example.com', role: 'client' },
+  { id: 34, name: 'Raúl', lastName: 'Morales', email: 'raul2@example.com', role: 'admin' },
+  { id: 35, name: 'Sara', lastName: 'Gómez', email: 'sara@example.com', role: 'client' },
+  { id: 36, name: 'Tomás', lastName: 'Jiménez', email: 'tomas@example.com', role: 'admin' }
 ];

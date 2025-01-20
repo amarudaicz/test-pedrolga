@@ -1,6 +1,50 @@
 
 
-<h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-  <router-outlet></router-outlet>
+
+<section class="flex flex-col justify-center items-center container mx-auto">
+
+  <div class="w-full flex items-center justify-between py-6 gap-x-10">
+
+    <div class="flex flex-col">
+      <nav class="flex items-center gap-x-3 justify-center">
+        <a class="hover:text-blue-800" routerLink="/">List users</a>
+        |
+        <a class="hover:text-blue-800" routerLink="/add">Add user</a>
+      </nav>
+
+      <div class="mt-4 flex items-center gap-x-1">
+
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input (change)="toggleOffline()" type="checkbox" class="sr-only peer" value="" />
+          <div
+            class="group peer bg-white rounded-full duration-300 w-16 h-8 ring-2 ring-green-500 after:duration-300 after:bg-green-500 peer-checked:after:bg-red-500 peer-checked:ring-red-500 after:rounded-full after:absolute after:h-6 after:w-6 after:top-1 after:left-1 after:flex after:justify-center after:items-center peer-checked:after:translate-x-8 peer-hover:after:scale-95"
+          ></div>
+        </label>
+
+
+        <div class="ml-2">
+          <p class="text-medium text-xs" [ngClass]="(offline$|async ) ? 'text-red-500' : 'text-green-500' " >
+            {{(offline$|async) ? 'Offline': 'Connected'}}
+          </p>
+        </div>
+        
+        
+      </div>
+    </div>
+
+
+    <div class="" *ngIf="showError">
+      <span class="p-3 rounded-md text-nowrap border-red-500 border-l-4 bg-gray-100 text-gray-700 animate-fadein">
+        {{(errors$|async)?.message}}
+      </span>
+    </div>
+  </div>
+  
+  
+  <main class="flex-1 w-full">
+    <router-outlet></router-outlet>
+  </main>
+
+  <app-loader [isLoading]="(loading$|async)" ></app-loader>
+  
+</section> 

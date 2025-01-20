@@ -1,0 +1,100 @@
+<div class="max-w-[600px] mx-auto">
+  <div class="overflow-auto">
+    <div class="overflow-x-auto">
+      <div class="flex flex-col">
+        <div class="flex gap-4 items-center py-2 flex-wrap justify-center">
+          <app-search-user></app-search-user>
+          <app-search-role-users></app-search-role-users>
+          <app-clear-filters></app-clear-filters>
+        </div>
+
+        <!-- Paginador -->
+      </div>
+    </div>
+
+    <ng-container *ngIf="usersState$ | async as usersState">
+      <div class="">
+        <div
+          class="overflow-y-auto overflow-x-auto h-[510px] max-h-[510px] w-full"
+        >
+          <!-- Usar variables intermedias -->
+          <ng-container *ngIf="filteredUsers$ | async as filteredUsers">
+            <table
+              class="w-full text-sm text-left text-gray-700"
+              *ngIf="
+                filteredUsers.count ||
+                  (!usersState.loading && filteredUsers.count);
+                else noContent
+              "
+            >
+              <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 sticky top-0"
+              >
+                <tr>
+                  <th scope="col" class="px-6 py-3">ID</th>
+                  <th scope="col" class="px-6 py-3">Name</th>
+                  <th scope="col" class="px-6 py-3">Email</th>
+                  <th scope="col" class="px-6 py-3">Role</th>
+                  <th scope="col" class="px-6 py-3">Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  *ngFor="let user of filteredUsers.users; let i = index"
+                  class="hover:bg-gray-100"
+                >
+                  <td
+                    class="border border-gray-300 px-4 py-2 max-w-5 overflow-hidden text-ellipsis"
+                  >
+                    {{ user.id }}
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    {{ user.name }}
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    {{ user.email }}
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    {{ user.role }}
+                  </td>
+                  <td class="border border-gray-300 px-4 py-2 flex gap-2">
+                    <button
+                      (click)="editUser(user)"
+                      class="rounded bg-blue-500 px-3 py-1 text-white hover:bg-blue-600"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      (click)="deleteUser(user.id)"
+                      class="rounded bg-red-500 px-3 py-1 text-white hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            
+            <ng-template #noContent>
+              <div
+              *ngIf="!usersState.loading"
+              class="w-full h-full flex items-center justify-center"
+              >
+              <span class="text-2xl text-gray pt-8">
+                No se encontraron resultados
+              </span>
+            </div>
+          </ng-template>
+        </ng-container>
+      </div>
+
+      <div class="pb-3">
+        <app-paginator></app-paginator>
+      </div>
+      
+      </div>
+    </ng-container>
+  </div>
+</div>

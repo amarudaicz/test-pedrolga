@@ -1,17 +1,27 @@
-import { User } from "src/app/modules/users/interfaces/user.interface"
+import { RoleUser, User } from "src/app/modules/users/interfaces/user.interface"
 import { Action, Reducer } from "mini-rx-store";
 import { UsersActionTypes, UsersActions } from "../interfaces/users.actions.interface";
 
 export interface UsersState {
-    users: User[],
+    allUsers: User[],
     loading: boolean,
-    err: string | null
+    err: string | null,
+    offline:boolean,
+    filter: {            // Criterios de filtro
+        role: RoleUser|null;   // Rol seleccionado
+        query?: string;   // Texto de búsqueda
+    };
 }
 
 export const initialState: UsersState = {
-    users: [],
+    allUsers: [],
     loading: false,
-    err: null
+    err: null,
+    offline:false,
+    filter: {
+        role: null,
+        query: '',
+    },
 }
 
 
@@ -24,7 +34,7 @@ export const usersReducer: Reducer<UsersState> = (
         case 'SET_LOADING':
             return {
                 ...state,
-                loading: true
+                loading: action['payload']
             };
 
         case 'SET_ERROR':
@@ -34,6 +44,30 @@ export const usersReducer: Reducer<UsersState> = (
                 loading: false
             };
 
+            case 'TOGGLE_OFFLINE':
+                return {
+                    ...state,
+                    offline:!state.offline
+                };
+
+        case 'SET_FILTER_ROLE':
+            return {
+                ...state,
+                filter: { ...state.filter, role: action['payload'] },
+            };
+
+        case 'SET_FILTER_QUERY':
+            return {
+                ...state,
+                filter: { ...state.filter, query: action['payload'] },
+            };
+
+        case 'CLEAR_FILTERS':
+            return {
+                ...state,
+                filter: {role:null, query:'' },
+            };
+
         case UsersActionTypes.LOAD_USERS:
         case UsersActionTypes.UPDATE_USER:
         case UsersActionTypes.ADD_USER:
@@ -41,52 +75,49 @@ export const usersReducer: Reducer<UsersState> = (
             return state
 
 
-        case UsersActionTypes.LOAD_USERS_SUCCES:
+        case UsersActionTypes.LOAD_USERS_SUCCESS:
             return {
                 ...state,
-                users: action['payload'],
+                allUsers: action['payload'],
                 loading: false
             };
 
 
 
-        case UsersActionTypes.ADD_USER_SUCCES:
+        case UsersActionTypes.ADD_USER_SUCCESS:
             return {
                 ...state,
-                users: [...state.users, action['payload']],
+                allUsers: [...state.allUsers, action['payload']],
                 loading: false
             }
 
 
-        case UsersActionTypes.UPDATE_USER_SUCCES: {
-            const index = state.users.findIndex((user) => user.id === action['payload'].id);
-
+        case UsersActionTypes.UPDATE_USER_SUCCESS: {
+            const index = state.allUsers.findIndex((user) => user.id === action['payload'].id);
+            console.log(index);
             if (index === -1) {
                 return state;
             }
 
-            const updatedUsers = [...state.users];
+            const updatedUsers = [...state.allUsers];
             updatedUsers[index] = action['payload'];
 
             return {
                 ...state,
-                users: updatedUsers,
+                allUsers: updatedUsers,
                 loading: false
             };
         }
 
-        case UsersActionTypes.DELETE_USER_SUCCES: {
-            const updatedUsers = state.users.filter((user) => user.id !== action['payload'].id);
-
-            if (updatedUsers.length === state.users.length) {
-                return state;
-            }
+        case UsersActionTypes.DELETE_USER_SUCCESS: {
+            const updatedUsers = state.allUsers.filter((user) => user.id !== action['payload']);
 
             return {
-                ...state,
-                users: updatedUsers,
+              ...state,
+              allUsers: updatedUsers,
+              loading: false
             };
-        }
+          }
 
         default:
             return state;

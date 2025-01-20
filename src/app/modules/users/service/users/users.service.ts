@@ -1,37 +1,62 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { delay, of, throwError, switchMap } from 'rxjs';
 import { User } from '../../interfaces/user.interface';
-import { users } from 'src/app/DB/DB';
+import { _USERS } from 'src/app/DB/DB';
+import { Store } from 'mini-rx-store';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
+  $offline = this.store.select((state) => state['users'].offline);
 
-  constructor() { }
+  constructor(private store: Store) {}
 
-  public getUsers(){
-    return of(
-      users
-    )
+  private handleOfflineError() {
+    return this.$offline.pipe(
+      switchMap((offline) => {
+        if (offline) {
+          return throwError(() => new Error('Offline mode is enabled'));
+        }
+        return of(null); 
+      })
+    );
   }
 
-  public addUser(user:User){
-    return of(
-      user
-    )
+  public getUsers(currentPage: number, pageSize = 10) {
+    return this.handleOfflineError().pipe(
+      switchMap(() => {
+        const startIndex = (currentPage - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const paginatedUsers = _USERS.slice(startIndex, endIndex);
+        const totalPages = Math.ceil(_USERS.length / pageSize); // Redondea hacia arriba para obtener el total de páginas
+
+        return of(_USERS).pipe(delay(2000)); // Simula un retraso de 2 segundos
+      })
+    );
   }
 
-  public updateUser(user:User){
-    return of(
-      user
-    )
+  public addUser(user: User) {
+    return this.handleOfflineError().pipe(
+      switchMap(() => {
+        return of(user).pipe(delay(2000)); // Simula un retraso de 2 segundos
+      })
+    );
   }
 
-  public deleteUser(id:number){
-    return of(
-      id
-    )
+  public updateUser(user: User) {
+    return this.handleOfflineError().pipe(
+      switchMap(() => {
+        return of(user).pipe(delay(2000)); // Simula un retraso de 2 segundos
+      })
+    );
   }
 
+  public deleteUser(id: number) {
+    return this.handleOfflineError().pipe(
+      switchMap(() => {
+        return of(id).pipe(delay(2000)); // Simula un retraso de 2 segundos
+      })
+    );
+  }
 }

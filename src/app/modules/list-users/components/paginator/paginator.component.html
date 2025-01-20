@@ -1,0 +1,43 @@
+<ng-container *ngIf="paginatorState$ | async as paginator">
+    <div class="flex justify-center items-center flex-wrap gap-4 py-4">
+      <p
+        class="text-gray-800"
+        *ngIf="filteredUsers$ | async as filteredUsers"
+      >
+        Mostrando<span class="font-bold">
+          {{ filteredUsers.users.length }} </span
+        >de
+        <span class="font-bold">
+          {{ filteredUsers.count }}
+        </span>
+      </p>
+
+      <select
+        (change)="setPageSize($event)"
+        class="p-1 px-3 border"
+        [ngModel]="paginator.pageSize"
+      >
+        <option [value]="o" *ngFor="let o of [10, 20, 30]">
+          {{ o }}
+        </option>
+      </select>
+
+      <div class="flex items-center gap-x-2">
+        <button
+          *ngFor="
+            let page of [].constructor(paginator.totalPages);
+            let i = index
+          "
+          (click)="changePage(i + 1)"
+          [ngClass]="
+            paginator.currentPage === i + 1
+              ? 'bg-blue-500'
+              : 'bg-gray-500'
+          "
+          class="px-3 py-1 rounded hover:bg-blue-400 text-white"
+        >
+          {{ i + 1 }}
+        </button>
+      </div>
+    </div>
+  </ng-container>

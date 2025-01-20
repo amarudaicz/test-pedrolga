@@ -7,10 +7,10 @@ export enum UsersActionTypes {
     UPDATE_USER = 'UPDATE_USER',
     DELETE_USER = 'DELETE_USER',
 
-    LOAD_USERS_SUCCES = 'LOAD_USERS_SUCCES',
-    ADD_USER_SUCCES = 'ADD_USER_SUCCES',
-    UPDATE_USER_SUCCES ='UPDATE_USER_SUCCES',
-    DELETE_USER_SUCCES ='DELETE_USER_SUCCES',
+    LOAD_USERS_SUCCESS = 'LOAD_USERS_SUCCESS',
+    ADD_USER_SUCCESS = 'ADD_USER_SUCCESS',
+    UPDATE_USER_SUCCESS ='UPDATE_USER_SUCCESS',
+    DELETE_USER_SUCCESS ='DELETE_USER_SUCCESS',
 }
 
 export interface LoadUsersAction extends Action {
@@ -18,8 +18,8 @@ export interface LoadUsersAction extends Action {
     payload: User[];
 }
 
-export interface LoadUserSucces extends Action {
-    type:UsersActionTypes.LOAD_USERS_SUCCES,
+export interface LoadUserSuccess extends Action {
+    type:UsersActionTypes.LOAD_USERS_SUCCESS,
     payload:User[]
 }
 
@@ -38,4 +38,4 @@ export interface DeleteUserAction extends Action {
     payload: {id:number};
 }
 
-export type UsersActions = LoadUsersAction | LoadUserSucces |  AddUserAction | UpdateUserAction | DeleteUserAction;
+export type UsersActions = LoadUsersAction | LoadUserSuccess |  AddUserAction | UpdateUserAction | DeleteUserAction;
